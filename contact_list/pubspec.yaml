@@ -28,6 +28,14 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  dio: ^5.3.3
+  flutter_dotenv: ^5.1.0
+  google_fonts: ^4.0.4
+  font_awesome_flutter: ^10.6.0
+  intl: ^0.18.1
+  path_provider: ^2.1.1
+  image_picker: ^1.0.4
+  gallery_saver: ^2.3.2
   flutter:
     sdk: flutter
 
@@ -59,7 +67,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - .env
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
