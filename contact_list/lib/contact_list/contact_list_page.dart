@@ -34,6 +34,21 @@ class _ContactListPageState extends State<ContactListPage> {
     setState(() {});
   }
 
+  Future<void> _navigateAndDisplaySelection(
+      BuildContext context, Contact? contact) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ContactDetailPage(contact: contact)),
+    );
+    if (!mounted) return;
+
+    contacts = [];
+    await fetchContacts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,20 +66,15 @@ class _ContactListPageState extends State<ContactListPage> {
                   var contact = contacts[index];
                   return InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ContactDetailPage(
-                          contact: contact,
-                        );
-                      }));
+                      _navigateAndDisplaySelection(context, contact);
                     },
                     child: Column(
                       children: [
                         ListTile(
                           leading: (contact.imagePath != null &&
-                                  contact.imagePath!.trim().isEmpty)
+                                  contact.imagePath?.trim().isEmpty == true)
                               ? const FaIcon(FontAwesomeIcons.addressBook)
-                              : Image.file(File(contact.imagePath ?? "")),
+                              : Image.file(File(contact.imagePath!)),
                           title: Text(contact.name ?? ""),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,9 +95,7 @@ class _ContactListPageState extends State<ContactListPage> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return ContactDetailPage();
-          }));
+          _navigateAndDisplaySelection(context, null);
         },
         child: const FaIcon(FontAwesomeIcons.plus),
       ),

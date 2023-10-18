@@ -48,7 +48,6 @@ class Contact {
     email = json['email'];
     position = json['position'];
     imagePath = json['image_path'];
-    createdAt = DateTime.parse(json['createdAt']);
     updatedAt = DateTime.parse(json['updatedAt']);
   }
 
@@ -60,8 +59,6 @@ class Contact {
     data['email'] = email;
     data['position'] = position;
     data['image_path'] = imagePath;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
     return data;
   }
 }
