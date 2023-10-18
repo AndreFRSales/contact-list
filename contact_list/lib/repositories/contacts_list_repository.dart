@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contact_list/models/contacts.dart';
 import 'package:contact_list/network/custom_dio.dart';
 import 'package:dio/dio.dart';
@@ -25,8 +27,8 @@ class ContactsListRepository {
 
   update(Contact contact) async {
     try {
-      await _customDio.dio
-          .put("/Contact/${contact.objectId}", data: contact.toJson());
+      await _customDio.dio.put("/Contact/${contact.objectId}",
+          data: json.encode(contact.toJson()));
     } catch (e) {
       e.toString();
     }
